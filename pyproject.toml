@@ -1,0 +1,41 @@
+[project]
+name = "flow"
+version = "0.1.0"
+description = "Agentic AI for stock market data analysis and decision making"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "openbb",
+    "openbb-yfinance",
+    "fastapi",
+    "uvicorn[standard]",
+    "duckdb",
+    "pyarrow",
+    "pandas",
+    "pydantic-settings",
+    "typer",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx", "pytest-asyncio", "ruff"]
+
+[project.scripts]
+flow = "flow.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/flow"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
