@@ -4,6 +4,7 @@ import { useTickers, useRemoveTicker } from '../hooks/useTickers';
 import { TickerRow } from '../components/ticker/TickerRow';
 import { AddTickerModal } from '../components/ticker/AddTickerModal';
 import { Card } from '../components/common/Card';
+import { Button } from '../components/common/Button';
 import { Skeleton } from '../components/common/Skeleton';
 
 type SortField = 'symbol' | 'last' | 'change' | 'volume' | 'range';
@@ -100,13 +101,10 @@ export default function Watchlist() {
             <AlertTriangle className="h-12 w-12 text-bearish mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-slate-50 mb-2">Failed to load watchlist</h2>
             <p className="text-sm text-slate-400 mb-4">Something went wrong. Please try again.</p>
-            <button
-              onClick={() => refetch()}
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent/80 text-white rounded-lg px-4 py-2 cursor-pointer transition-colors duration-200"
-            >
+            <Button onClick={() => refetch()}>
               <RefreshCw className="h-4 w-4" />
               Retry
-            </button>
+            </Button>
           </Card>
         </div>
       </div>
@@ -124,13 +122,10 @@ export default function Watchlist() {
             <p className="text-sm text-slate-400 mb-4">
               Add tickers to start tracking stocks.
             </p>
-            <button
-              onClick={() => setModalOpen(true)}
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent/80 text-white rounded-lg px-4 py-2 cursor-pointer transition-colors duration-200"
-            >
+            <Button onClick={() => setModalOpen(true)}>
               <Plus className="h-4 w-4" />
               Add Ticker
-            </button>
+            </Button>
           </Card>
         </div>
         <AddTickerModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
@@ -142,13 +137,10 @@ export default function Watchlist() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-slate-50">Watchlist</h1>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-2 bg-accent hover:bg-accent/80 text-white rounded-lg px-3 py-2 text-sm cursor-pointer transition-colors duration-200"
-        >
+        <Button onClick={() => setModalOpen(true)} className="px-3">
           <Plus className="h-4 w-4" />
           Add Ticker
-        </button>
+        </Button>
       </div>
 
       {pendingRemove && (

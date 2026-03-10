@@ -17,11 +17,10 @@ const navItems = [
   { label: 'Screener', icon: SlidersHorizontal, path: '/screener' },
 ];
 
-export function Sidebar() {
-  const sidebarMobileOpen = useUIStore((s) => s.sidebarMobileOpen);
+function NavItems({ labelClassName }: { labelClassName?: string }) {
   const setSidebarMobileOpen = useUIStore((s) => s.setSidebarMobileOpen);
 
-  const navContent = (
+  return (
     <nav className="flex flex-col gap-1 mt-4 px-2">
       {navItems.map(({ label, icon: Icon, path }) => (
         <NavLink
@@ -38,17 +37,22 @@ export function Sidebar() {
           }
         >
           <Icon className="h-5 w-5 shrink-0" />
-          <span className="lg:inline hidden">{label}</span>
+          <span className={labelClassName}>{label}</span>
         </NavLink>
       ))}
     </nav>
   );
+}
+
+export function Sidebar() {
+  const sidebarMobileOpen = useUIStore((s) => s.sidebarMobileOpen);
+  const setSidebarMobileOpen = useUIStore((s) => s.setSidebarMobileOpen);
 
   return (
     <>
       {/* Desktop / Tablet sidebar */}
       <aside className="hidden md:flex fixed top-14 left-0 bottom-0 z-20 flex-col bg-surface-secondary border-r border-border-primary w-16 lg:w-64">
-        {navContent}
+        <NavItems labelClassName="lg:inline hidden" />
       </aside>
 
       {/* Mobile overlay */}
@@ -68,26 +72,7 @@ export function Sidebar() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="flex flex-col gap-1 mt-4 px-2">
-              {navItems.map(({ label, icon: Icon, path }) => (
-                <NavLink
-                  key={path}
-                  to={path}
-                  end={path === '/'}
-                  onClick={() => setSidebarMobileOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium cursor-pointer transition-colors duration-200 ${
-                      isActive
-                        ? 'bg-surface-tertiary text-accent border-l-2 border-accent'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-surface-tertiary/50'
-                    }`
-                  }
-                >
-                  <Icon className="h-5 w-5 shrink-0" />
-                  <span>{label}</span>
-                </NavLink>
-              ))}
-            </nav>
+            <NavItems />
           </aside>
         </div>
       )}

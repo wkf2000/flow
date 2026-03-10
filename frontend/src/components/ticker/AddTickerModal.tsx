@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { X } from 'lucide-react';
 import { useAddTicker } from '../../hooks/useTickers';
+import { Button } from '../common/Button';
 
 interface AddTickerModalProps {
   isOpen: boolean;
@@ -83,20 +84,12 @@ export function AddTickerModal({ isOpen, onClose }: AddTickerModalProps) {
           )}
 
           <div className="flex gap-3 justify-end">
-            <button
-              type="button"
-              onClick={handleClose}
-              className="px-4 py-2 rounded-lg text-slate-400 hover:text-slate-200 cursor-pointer transition-colors duration-200"
-            >
+            <Button variant="ghost" type="button" onClick={handleClose}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isPending}
-              className="bg-accent hover:bg-accent/80 disabled:opacity-50 text-white rounded-lg px-4 py-2 cursor-pointer transition-colors duration-200"
-            >
+            </Button>
+            <Button type="submit" disabled={isPending}>
               {isPending ? 'Adding...' : 'Add'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

@@ -13,11 +13,9 @@ const DEFAULT_INDICATORS: IndicatorConfig[] = [
 ];
 
 interface UIState {
-  sidebarCollapsed: boolean;
   sidebarMobileOpen: boolean;
   selectedIndicators: IndicatorConfig[];
   chartTimeRange: '1M' | '3M' | '6M' | '1Y' | '5Y' | 'ALL';
-  toggleSidebar: () => void;
   setSidebarMobileOpen: (open: boolean) => void;
   toggleIndicator: (index: number) => void;
   updateIndicatorParams: (index: number, params: Record<string, number>) => void;
@@ -25,11 +23,9 @@ interface UIState {
 }
 
 export const useUIStore = create<UIState>((set) => ({
-  sidebarCollapsed: false,
   sidebarMobileOpen: false,
   selectedIndicators: DEFAULT_INDICATORS,
   chartTimeRange: '1Y',
-  toggleSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
   setSidebarMobileOpen: (open) => set({ sidebarMobileOpen: open }),
   toggleIndicator: (index) =>
     set((s) => {

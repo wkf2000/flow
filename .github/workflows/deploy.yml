@@ -63,7 +63,7 @@ jobs:
       DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
     steps:
-      - name: Deploy to server
+      - name: Deploy and verify
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ env.DEPLOY_HOST }}
@@ -74,37 +74,21 @@ jobs:
             cd ${{ env.DEPLOY_PATH }}
 
             echo "Pulling latest images..."
-            docker compose -f docker-compose.yml pull
+            docker compose pull
 
-            echo "Stopping existing containers..."
-            docker compose -f docker-compose.yml down || true
-
-            echo "Starting containers..."
-            docker compose -f docker-compose.yml up -d
+            echo "Restarting containers..."
+            docker compose down || true
+            docker compose up -d
 
             echo "Cleaning up unused Docker images..."
             docker image prune -f
 
-            echo "Current running containers:"
-            docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-
-            echo "Deployment completed successfully!"
-
-      - name: Verify deployment
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ env.DEPLOY_HOST }}
-          port: ${{ env.DEPLOY_PORT }}
-          username: ${{ secrets.DEPLOY_USERNAME }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          script: |
-            cd ${{ env.DEPLOY_PATH }}
-
-            echo "Checking container status..."
-            if docker compose -f docker-compose.yml ps | grep -q "Up"; then
+            echo "Verifying deployment..."
+            if docker compose ps | grep -q "Up"; then
               echo "Containers are running"
+              docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
             else
               echo "Containers are not running"
-              docker compose -f docker-compose.yml logs --tail=20
+              docker compose logs --tail=20
               exit 1
             fi

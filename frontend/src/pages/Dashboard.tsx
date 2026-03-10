@@ -4,6 +4,7 @@ import { useTickers } from '../hooks/useTickers';
 import { TickerCard } from '../components/ticker/TickerCard';
 import { AddTickerModal } from '../components/ticker/AddTickerModal';
 import { Card } from '../components/common/Card';
+import { Button } from '../components/common/Button';
 import { Skeleton } from '../components/common/Skeleton';
 
 export default function Dashboard() {
@@ -14,13 +15,10 @@ export default function Dashboard() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-slate-50">Market Overview</h1>
-        <button
-          onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-2 bg-accent hover:bg-accent/80 text-white rounded-lg px-4 py-2 text-sm font-medium cursor-pointer transition-colors duration-200"
-        >
+        <Button onClick={() => setModalOpen(true)}>
           <Plus className="h-4 w-4" />
           Add Ticker
-        </button>
+        </Button>
       </div>
 
       {isLoading && (
@@ -42,12 +40,7 @@ export default function Dashboard() {
         <Card className="max-w-md mx-auto text-center py-8">
           <AlertCircle className="h-10 w-10 text-bearish mx-auto mb-3" />
           <p className="text-slate-300 mb-4">Failed to load tickers</p>
-          <button
-            onClick={() => refetch()}
-            className="bg-accent hover:bg-accent/80 text-white rounded-lg px-4 py-2 text-sm cursor-pointer transition-colors duration-200"
-          >
-            Retry
-          </button>
+          <Button onClick={() => refetch()}>Retry</Button>
         </Card>
       )}
 
@@ -58,13 +51,10 @@ export default function Dashboard() {
           <p className="text-slate-500 text-sm mb-6">
             Add your first ticker to get started.
           </p>
-          <button
-            onClick={() => setModalOpen(true)}
-            className="inline-flex items-center gap-2 bg-accent hover:bg-accent/80 text-white rounded-lg px-4 py-2 text-sm cursor-pointer transition-colors duration-200"
-          >
+          <Button onClick={() => setModalOpen(true)}>
             <Plus className="h-4 w-4" />
             Add Ticker
-          </button>
+          </Button>
         </Card>
       )}
 

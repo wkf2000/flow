@@ -29,11 +29,6 @@ class TickerResponse(BaseModel):
     info: TickerInfo
 
 
-class PriceQuery(BaseModel):
-    start: date | None = None
-    end: date | None = None
-
-
 class PriceResponse(BaseModel):
     symbol: str
     count: int
