@@ -1,3 +1,13 @@
+FROM node:22-slim AS frontend
+
+WORKDIR /app/frontend
+
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
 FROM python:3.11-slim AS builder
 
 WORKDIR /app
@@ -18,6 +28,7 @@ WORKDIR /app
 COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=builder /usr/local/bin/flow /usr/local/bin/flow
 COPY --from=builder /usr/local/bin/uvicorn /usr/local/bin/uvicorn
+COPY --from=frontend /app/frontend/dist /app/static
 
 ENV FLOW_DATA_DIR=/data
 
