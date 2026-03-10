@@ -1,6 +1,6 @@
-import { BarChart3 } from 'lucide-react';
 import { useUIStore } from '../../stores/uiStore';
 import { TIME_RANGES } from '../../lib/constants';
+import { IndicatorsDropdown } from './IndicatorsDropdown';
 
 interface ChartToolbarProps {
   symbols: string[];
@@ -43,10 +43,7 @@ export function ChartToolbar({ symbols, selectedSymbol, onSymbolChange }: ChartT
         ))}
       </div>
 
-      <button className="ml-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-surface-tertiary text-slate-400 hover:text-slate-200 transition-colors duration-200 cursor-pointer">
-        <BarChart3 className="h-3.5 w-3.5" />
-        Indicators
-      </button>
+      <IndicatorsDropdown />
     </div>
   );
 }
