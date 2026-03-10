@@ -8,29 +8,25 @@ RUN npm ci
 COPY frontend/ ./
 RUN npm run build
 
-FROM python:3.11-slim AS builder
+FROM python:3.13-slim AS builder
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc g++ && \
-    rm -rf /var/lib/apt/lists/*
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-COPY pyproject.toml README.md ./
+COPY pyproject.toml uv.lock README.md ./
 COPY src/ src/
 
-RUN pip install --no-cache-dir .
+RUN uv sync --frozen --no-dev
 
-FROM python:3.11-slim
+FROM python:3.13-slim
 
 WORKDIR /app
 
-COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
-COPY --from=builder /usr/local/bin/flow /usr/local/bin/flow
-COPY --from=builder /usr/local/bin/uvicorn /usr/local/bin/uvicorn
+COPY --from=builder /app/.venv /app/.venv
 COPY --from=frontend /app/frontend/dist /app/static
 
-ENV FLOW_DATA_DIR=/data
+ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8000
 
