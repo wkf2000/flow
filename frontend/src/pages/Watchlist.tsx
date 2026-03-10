@@ -61,7 +61,7 @@ export default function Watchlist() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold text-slate-50">Watchlist</h1>
         </div>
-        <div className="bg-surface-secondary border border-border-primary rounded-xl overflow-hidden">
+        <div className="bg-surface-secondary border border-border-primary rounded-xl overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-xs text-slate-500 uppercase tracking-wider border-b border-border-primary">
@@ -172,7 +172,7 @@ export default function Watchlist() {
         </div>
       )}
 
-      <div className="bg-surface-secondary border border-border-primary rounded-xl overflow-hidden">
+      <div className="bg-surface-secondary border border-border-primary rounded-xl overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="text-xs text-slate-500 uppercase tracking-wider border-b border-border-primary">

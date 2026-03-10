@@ -11,7 +11,7 @@ export default function Dashboard() {
   const { data: tickers, isLoading, error, refetch } = useTickers();
 
   return (
-    <div className="p-6">
+    <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold text-slate-50">Market Overview</h1>
         <button

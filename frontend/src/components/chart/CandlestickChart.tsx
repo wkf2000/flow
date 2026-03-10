@@ -110,5 +110,5 @@ export function CandlestickChart({ data, overlays = [] }: CandlestickChartProps)
     };
   }, [data, overlays]);
 
-  return <div ref={containerRef} className="w-full h-[500px]" />;
+  return <div ref={containerRef} className="w-full h-[300px] sm:h-[400px] lg:h-[500px]" />;
 }

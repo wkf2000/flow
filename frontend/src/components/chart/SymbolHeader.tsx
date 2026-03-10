@@ -38,7 +38,7 @@ export function SymbolHeader({ symbol }: SymbolHeaderProps) {
 
       <div className="flex items-center gap-3 pt-1">
         <span className="text-xs text-slate-500 font-mono">{formatPrice(low_52w)}</span>
-        <div className="relative w-48 h-1.5 bg-surface-tertiary rounded-full">
+        <div className="relative w-full max-w-48 h-1.5 bg-surface-tertiary rounded-full">
           <div
             className="absolute inset-y-0 left-0 bg-accent rounded-full"
             style={{ width: `${Math.min(Math.max(positionPct, 0), 100)}%` }}

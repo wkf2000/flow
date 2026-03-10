@@ -118,7 +118,7 @@ export default function Chart() {
           </p>
           <button
             onClick={() => refetch()}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-accent text-white hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-accent text-white hover:bg-accent/80 transition-colors duration-200 cursor-pointer"
           >
             <RefreshCw className="h-4 w-4" />
             Retry

@@ -65,7 +65,7 @@ export function IndicatorsDropdown() {
             >
               <div
                 className={`w-8 h-4 rounded-full transition-colors duration-200 relative ${
-                  ind.enabled ? 'bg-accent' : 'bg-slate-700'
+                  ind.enabled ? 'bg-accent' : 'bg-surface-tertiary'
                 }`}
               >
                 <div
