@@ -5,10 +5,10 @@ from pydantic import BaseModel, Field
 
 class OHLCVRow(BaseModel):
     date: date
-    open: float
-    high: float
-    low: float
-    close: float
+    open: float | None = None
+    high: float | None = None
+    low: float | None = None
+    close: float | None = None
     volume: int
     vwap: float | None = None
     split_ratio: float | None = None

@@ -54,6 +54,7 @@ def get_prices(
 ):
     symbol = symbol.upper()
     df = query_prices(symbol, start, end)
+    df = df.where(df.notna(), None)
     rows = [OHLCVRow(**row) for row in df.to_dict("records")]
     return PriceResponse(symbol=symbol, count=len(rows), data=rows)
 
