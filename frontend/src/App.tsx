@@ -1,7 +1,23 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AppLayout } from './components/layout/AppLayout';
+import Dashboard from './pages/Dashboard';
+import Chart from './pages/Chart';
+import Watchlist from './pages/Watchlist';
+import Portfolio from './pages/Portfolio';
+import Screener from './pages/Screener';
+
 export default function App() {
   return (
-    <div className="bg-surface-primary text-slate-50 min-h-screen flex items-center justify-center">
-      <h1 className="text-4xl font-semibold">Flow</h1>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/chart/:symbol?" element={<Chart />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/screener" element={<Screener />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
