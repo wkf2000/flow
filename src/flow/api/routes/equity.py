@@ -1,3 +1,4 @@
+import math
 from datetime import date
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException
@@ -54,8 +55,12 @@ def get_prices(
 ):
     symbol = symbol.upper()
     df = query_prices(symbol, start, end)
-    df = df.where(df.notna(), None)
-    rows = [OHLCVRow(**row) for row in df.to_dict("records")]
+    records = df.to_dict("records")
+    for rec in records:
+        for key, val in rec.items():
+            if isinstance(val, float) and math.isnan(val):
+                rec[key] = None
+    rows = [OHLCVRow(**row) for row in records]
     return PriceResponse(symbol=symbol, count=len(rows), data=rows)
 
 
