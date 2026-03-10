@@ -1,9 +1,7 @@
-function App() {
+export default function App() {
   return (
-    <div>
-      <h1>Flow</h1>
+    <div className="bg-surface-primary text-slate-50 min-h-screen flex items-center justify-center">
+      <h1 className="text-4xl font-semibold">Flow</h1>
     </div>
   )
 }
-
-export default App
