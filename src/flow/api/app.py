@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -6,7 +7,7 @@ from starlette.responses import FileResponse
 
 from flow.api.routes.equity import router as equity_router
 
-STATIC_DIR = Path(__file__).resolve().parents[3] / "static"
+STATIC_DIR = Path(os.environ.get("FLOW_STATIC_DIR", "/app/static"))
 
 
 def create_app() -> FastAPI:
