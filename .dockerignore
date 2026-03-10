@@ -1,13 +1,17 @@
 .git
 .github
 .venv
+.vscode
 .env
 .ruff_cache
 .pytest_cache
 .mypy_cache
+.cursor
 __pycache__
 *.pyc
 data/
 *.egg-info
 dist/
 build/
+frontend/node_modules
+frontend/dist
