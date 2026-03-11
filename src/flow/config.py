@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     backfill_start_date: str = "2005-01-01"
     overlap_days: int = 5
     tickers_file: str = "tickers.json"
+    api_key: str = ""
 
     @property
     def equity_prices_dir(self) -> Path:

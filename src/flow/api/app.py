@@ -1,10 +1,11 @@
 import os
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 
+from flow.api.auth import require_api_key
 from flow.api.routes.equity import router as equity_router
 
 STATIC_DIR = Path(os.environ.get("FLOW_STATIC_DIR", "/app/static"))
@@ -16,7 +17,7 @@ def create_app() -> FastAPI:
         description="Stock market data analysis platform",
         version="0.1.0",
     )
-    app.include_router(equity_router, prefix="/api")
+    app.include_router(equity_router, prefix="/api", dependencies=[Depends(require_api_key)])
 
     @app.get("/health")
     async def health():

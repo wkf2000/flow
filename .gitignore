@@ -202,6 +202,20 @@ cython_debug/
 .cursorindexingignore
 .cursor/skills/
 .agents/
+.claude/
+.cursor/
+.windsurf/
+.agent/
+.github/
+.kiro/
+.opencode/
+.roo/
+.codex/
+.qoder/
+.gemini/
+.trae/
+.continue/
+.codebuddy/
 
 # Marimo
 marimo/_static/
