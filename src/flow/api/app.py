@@ -3,10 +3,11 @@ from pathlib import Path
 
 from fastapi import Depends, FastAPI
 from fastapi.staticfiles import StaticFiles
-from starlette.responses import FileResponse
+from starlette.responses import FileResponse, HTMLResponse
 
 from flow.api.auth import require_api_key
 from flow.api.routes.equity import router as equity_router
+from flow.config import settings
 
 STATIC_DIR = Path(os.environ.get("FLOW_STATIC_DIR", "/app/static"))
 
@@ -26,12 +27,19 @@ def create_app() -> FastAPI:
     if STATIC_DIR.is_dir():
         app.mount("/assets", StaticFiles(directory=STATIC_DIR / "assets"), name="assets")
 
+        def _inject_config(html: str) -> str:
+            import json
+            config = json.dumps({"apiKey": settings.api_key})
+            script = f"<script>window.__FLOW_CONFIG__={config};</script>"
+            return html.replace("</head>", f"{script}\n</head>")
+
         @app.get("/{full_path:path}")
         async def serve_spa(full_path: str):
             file_path = STATIC_DIR / full_path
             if file_path.is_file():
                 return FileResponse(file_path)
-            return FileResponse(STATIC_DIR / "index.html")
+            index = (STATIC_DIR / "index.html").read_text()
+            return HTMLResponse(_inject_config(index))
 
     return app
 
