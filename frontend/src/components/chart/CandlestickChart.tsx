@@ -34,6 +34,7 @@ export function CandlestickChart({ data, overlays = [] }: CandlestickChartProps)
       layout: {
         background: { type: ColorType.Solid, color: CHART_COLORS.background },
         textColor: '#94A3B8',
+        attributionLogo: false,
       },
       grid: {
         vertLines: { color: CHART_COLORS.grid },

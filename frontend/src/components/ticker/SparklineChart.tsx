@@ -17,6 +17,7 @@ export function SparklineChart({ data }: SparklineChartProps) {
       layout: {
         background: { type: ColorType.Solid, color: 'transparent' },
         textColor: 'transparent',
+        attributionLogo: false,
       },
       grid: {
         vertLines: { visible: false },
